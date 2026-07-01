@@ -94,3 +94,8 @@ int imprimir_menu(BDTime *bd_t, BDPartidas *bd_p, const char* caminho_arquivo){
     return 0;
 }
 
+//NOVAS FUNÇÕES
+
+void imprimir_tabela_classificacao_ordenada(BDTime *bd_t, BDPartidas *bd_p) {
+  bd_imprimir_tabela_ordenada(bd_t, bd_p);
+}
