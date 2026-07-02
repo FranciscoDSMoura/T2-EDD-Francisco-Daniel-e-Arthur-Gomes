@@ -9,6 +9,8 @@
 
 // Importa uma outra interface pública
 #include "partidas.h"
+#include "bd_partidas.h"
+#include "bd_times.h"
 
 struct Time{
     int id;
@@ -98,6 +100,70 @@ void calcula_pontuacoes_time(Time *t, void* p){
     t->pontos_ganhos = t->vitorias * 3 + t->empates; // Calucla os pontos ganhos do time em todo o campeonato (V * 3 + E)
     t->saldo_gols = t->gols_m - t->gols_s; // Calcula o saldo final de gols
 }
+
+// Função de comparação seguindo os critérios do TP2
+int comparar_times(const void *a, const void *b){
+    Time *timeA = *(Time **)a;
+    Time *timeB = *(Time **)b;
+
+    // 1º Critério
+    if (timeA->pontos_ganhos != timeB->pontos_ganhos) {
+        return timeB->pontos_ganhos - timeA->pontos_ganhos;
+    }
+    // 2º Critério
+    if (timeA->vitorias != timeB->vitorias) {
+        return timeB->vitorias - timeA->vitorias;
+    }
+    // 2º Critério
+    if (timeA->saldo_gols != timeB->saldo_gols) {
+        return timeB->saldo_gols - timeA->saldo_gols;
+    }
+    // 3º Critério
+    if (timeA->gols_m != timeB->gols_m) {
+        return timeB->gols_m - timeA->gols_m;
+    }
+
+    return timeA->id - timeB->id;
+}
+
+void imprimir_time_com_classificacao(Time* t, int i){
+        //inicializa variáveis para calcular o espaçamento da tabela, considerando a possibilidade de acentos nos nomes dos times
+        wchar_t w_nome[50];
+
+        //a função converte e retorna a quantidade exata de letras visíveis
+        int qtd_letras = mbstowcs(w_nome, t->nome, 50);
+
+        //atribui a base de 16 e 12 espaços, respectivamente
+        int pad = 14;
+
+        //se tiver acento, o strlen (bytes) vai ser maior que o mbstowcs (letras)
+        if(qtd_letras != -1)
+            pad += (strlen(t->nome) - qtd_letras); //soma essa diferença no tamanho da coluna
+            
+    printf("%-3d  %-3d  %-*s  %-3d  %-3d  %-3d  %-3d  %-3d  %-3d  %-3d\n",
+            i + 1, t->id, pad, t->nome, t->vitorias, t->empates, t->derrotas, 
+            t->gols_m, t->gols_s, t->saldo_gols, t->pontos_ganhos);
+}
+
+void salvar_time_com_classificacao(Time* t, int i, FILE* arquivo){
+        //inicializa variáveis para calcular o espaçamento da tabela, considerando a possibilidade de acentos nos nomes dos times
+        wchar_t w_nome[50];
+
+        //a função converte e retorna a quantidade exata de letras visíveis
+        int qtd_letras = mbstowcs(w_nome, t->nome, 50);
+
+        //atribui a base de 16 e 12 espaços, respectivamente
+        int pad = 14;
+
+        //se tiver acento, o strlen (bytes) vai ser maior que o mbstowcs (letras)
+        if(qtd_letras != -1)
+            pad += (strlen(t->nome) - qtd_letras); //soma essa diferença no tamanho da coluna
+            
+    fprintf(arquivo, "%-3d  %-3d  %-*s  %-3d  %-3d  %-3d  %-3d  %-3d  %-3d  %-3d\n",
+            i + 1, t->id, pad, t->nome, t->vitorias, t->empates, t->derrotas, 
+            t->gols_m, t->gols_s, t->saldo_gols, t->pontos_ganhos);
+}
+
 
 int recebe_id_do_time(Time* t){ return t->id; }
 char* recebe_nome_do_time(Time* t){ return t->nome; }
