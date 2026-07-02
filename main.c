@@ -22,7 +22,9 @@ int main(){
     // Carrega os arquivos acima
     carregar_times_csv(bd_t, arquivo_t);
     carregar_partidas_csv(bd_p, arquivo_p);
-    salvar_arquivo_classificacao(bd_t, bd_p, arquivo_c);
+    //salvar_arquivo_classificacao(bd_t, bd_p, arquivo_c);
+    
+    salvar_tabela_ordenada_arquivo(bd_t, bd_p, arquivo_c);
     
     // Imprime o menu principal
     imprimir_menu(bd_t, bd_p, arquivo_bd_p);
