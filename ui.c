@@ -87,15 +87,10 @@ int imprimir_menu(BDTime *bd_t, BDPartidas *bd_p, const char* caminho_arquivo){
                     remover_partida_arquivo(bd_t, bd_p, caminho_arquivo); 
                 break;
             case '5': salvar_nova_partida(bd_t, bd_p, caminho_arquivo); classificacao_completa(bd_t, bd_p); break;
-            case '6': imprimir_tabela_classificacao(bd_t, bd_p); break;
+            case '6': imprimir_tabela_classificacao_ordenada(bd_t, bd_p); break;
             default: printf("Escolha uma opção válida.\n"); break;
         }
     }
     return 0;
 }
 
-//NOVAS FUNÇÕES
-
-void imprimir_tabela_classificacao_ordenada(BDTime *bd_t, BDPartidas *bd_p) {
-  bd_imprimir_tabela_ordenada(bd_t, bd_p);
-}
