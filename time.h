@@ -27,4 +27,13 @@ int recebe_id_do_time(Time* t);
 // Recebe o nome de um time
 char* recebe_nome_do_time(Time* t);
 
+// Compara diferente pontuações de 2 times para não haver empates
+int comparar_times(const void* a, const void* b);
+
+// Imprime a tabela ordenada
+void imprimir_time_com_classificacao(Time* t, int i);
+
+// Escreve a tabela ordenada no arquivo
+void salvar_time_com_classificacao(Time* t, int i, FILE* arquivo);
+
 #endif
