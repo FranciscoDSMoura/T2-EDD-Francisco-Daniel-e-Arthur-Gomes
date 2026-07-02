@@ -36,7 +36,7 @@ Linux Ubuntu V24.04
 
 **BDTime (Lista Encadeada Simples):** Armazena os nós contendo a estrutura `Time` de cada equipe (ID, Nome, V, E, D, GM, GS, S, PG). As inserções ocorrem de forma dinâmica.
 
-+ **BDPartidas (Lista Encadeada Simples):** Armazena os nós contendo a estrutura `Partidas` (ID do jogo, ID do Mandante, ID do Visitante, Gols do Mandante, Gols do Visitante). Suporta inserções e remoções dinâmicas de nós através de manipulação de ponteiros (`proximo`).
+**BDPartidas (Lista Encadeada Simples):** Armazena os nós contendo a estrutura `Partidas` (ID do jogo, ID do Mandante, ID do Visitante, Gols do Mandante, Gols do Visitante). Suporta inserções e remoções dinâmicas de nós através de manipulação de ponteiros (`proximo`).
 
 ## 5 - Regras de pontuação:
 
