@@ -34,7 +34,9 @@ Linux Ubuntu V24.04
 
 ## 4 - Estruturas utilizadas
 
-+ O sistema utiliza listas encadeadas simples para os bancos de dados, garantindo que a memória seja utilizada conforme a necessidade.
+**BDTime (Lista Encadeada Simples):** Armazena os nós contendo a estrutura `Time` de cada equipe (ID, Nome, V, E, D, GM, GS, S, PG). As inserções ocorrem de forma dinâmica.
+
++ **BDPartidas (Lista Encadeada Simples):** Armazena os nós contendo a estrutura `Partidas` (ID do jogo, ID do Mandante, ID do Visitante, Gols do Mandante, Gols do Visitante). Suporta inserções e remoções dinâmicas de nós através de manipulação de ponteiros (`proximo`).
 
 ## 5 - Regras de pontuação:
 
@@ -69,7 +71,13 @@ Se o usuário desejar buscar os times que começam com "SE":
 | **0** | JAVAlis |  5 x 4  | NETunos  |
 | **4** | PYthons |  2 x 2  | SEquelas |
 
-+ 6.3 **Imprimir Tabela de Classificação:** Exibe a lista completa de times e seus pontos acumulados.
+* 6.3 **Atualizar Partida:** Permite modificar o placar (gols do mandante e do visitante) de um jogo existente através do seu ID. O sistema recalcula automaticamente as estatísticas de classificação dos times envolvidos.
+
+* 6.4 **Remover Partida:** Exclui uma partida do banco de dados usando o ID do jogo, ajustando e subtraindo os pontos correspondentes dos times na memória.
+
+* 6.5 **Inserir Partida:** Registra um novo confronto entre dois times informando os IDs e os gols marcados, inserindo o nó dinamicamente na lista encadeada de partidas.
+
+6.6 **Imprimir Tabela de Classificação (Ordenada):** Gera o ranking atualizado do campeonato. Os times são ordenados através do algoritmo `qsort`, utilizando os os critérios de desempate.
 
 Ao selecionar a **opção 6** no menu, o sistema gera o seguinte relatório de desempenho dos times:
 
@@ -77,3 +85,11 @@ Ao selecionar a **opção 6** no menu, o sistema gera o seguinte relatório de d
 | :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **0** | JAVAlis | 3 | 1 | 0 | 10 | 4 | +6 | **10** |
 | **4** | PYthons | 2 | 2 | - | - | - | - | **-** |
+
+## 7 - Lógica de Ordenação e Desempate (Opção 6)
+
+1. **Pontos Ganhos (PG):** Maior pontuação fica acima (Decrescente).
+2. **Vitórias (V):** Maior número de vitórias (Decrescente).
+3. **Saldo de Gols (S):** Maior saldo (Decrescente).
+4. **Gols Marcados (GM):** Maior quantidade de gols pró (Decrescente).
+5. **ID do Time:** Caso todos os critérios anteriores sejam idênticos, o time com o menor ID tem preferência (Crescente).
